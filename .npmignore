@@ -1,0 +1,16 @@
+# 忽略目录
+config/
+dist/
+examples/
+packages/
+public/
+tests/
+
+# 忽略指定文件
+vue.config.js
+babel.config.js
+*.map
+.browserslistrc
+.eslintrc.js
+.gitignore
+postcss.comfig.js

@@ -1,7 +1,8 @@
 {
   "name": "vue-l10n-currency",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "main": "lib/vue-l10n-currency.umd.min.js",
   "author": {
     "name": "StriverF",
     "email": "striverf@gmail.com"
