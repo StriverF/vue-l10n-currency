@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/">例子</router-link>
+      <router-link to="/about">文档</router-link>
     </div>
     <router-view/>
   </div>
@@ -21,6 +21,7 @@
 }
 
 #nav a {
+  padding: 8px;
   font-weight: bold;
   color: #2c3e50;
 }
