@@ -13,4 +13,4 @@ babel.config.js
 .browserslistrc
 .eslintrc.js
 .gitignore
-postcss.comfig.js
+postcss.config.js

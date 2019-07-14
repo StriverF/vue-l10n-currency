@@ -1,11 +1,17 @@
 {
-  "name": "vue-l10n-currency",
+  "name": "vue-l10n",
   "version": "0.1.0",
-  "private": false,
+  "description": "vue l10n currency",
   "main": "lib/vue-l10n-currency.umd.min.js",
+  "private": false,
+  "license": "MIT",
   "author": {
     "name": "StriverF",
     "email": "striverf@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+git@github.com:StriverF/vue-l10n-currency.git"
   },
   "scripts": {
     "serve": "vue-cli-service serve",
