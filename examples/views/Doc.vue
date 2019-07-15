@@ -38,6 +38,14 @@ export default {
 .article p {
   padding: 10px 0 30px 0;
 }
+.article p a {
+  display: inline-block;
+  margin-left: 5px;
+  text-decoration: underline;
+}
+.article p a:hover {
+  color: #ff2556;
+}
 .article h2, .article h3 {
   font-size: 16px;
 }
