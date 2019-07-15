@@ -1,32 +1,31 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <div class="nav-menu">
       <router-link to="/" class="tab">例子</router-link>
       <router-link to="/doc" class="tab">文档</router-link>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('./assets/public.css');
+.nav-menu {
+  height: 60px;
+  box-shadow: 0 0 5px #b9b9b9;
   text-align: center;
-  color: #2c3e50;
 }
-#nav {
-  padding: 30px;
+.nav-menu a {
+  display: inline-block;
+  line-height: 60px;
+  padding: 0 50px;
+  font-size: 16px;
 }
-
-#nav a {
-  padding: 8px;
-  font-weight: bold;
-  color: #2c3e50;
+.nav-menu .router-link-exact-active {
+  background: #ff2556;
+  color: #fff;
 }
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.main {
+  padding-top: 50px;
 }
 </style>
