@@ -1,14 +1,17 @@
 
 module.exports = {
-    lintOnSave: false,
-    runtimeCompiler: true,
-    pages: {
-      index: {
-        entry: 'examples/main.js',
-        template: 'public/index.html',
-        filename: 'index.html'
-      }
-    },
+  lintOnSave: false,
+  runtimeCompiler: true,
+  pages: {
+    index: {
+      entry: 'examples/main.js',
+      template: 'public/index.html',
+      filename: 'index.html'
+    }
+  },
+
+  // 输出文件目录
+  outputDir: 'docs',
     // chainWebpack: config => {
     //   config.module
     //     .rule('js')
