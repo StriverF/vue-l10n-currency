@@ -1,20 +1,20 @@
-# vue-l10n-currency 一个货币显示本地化的Vue插件
+# vue-l10n 一个货币显示本地化的Vue插件
 
 ## 介绍
 vue-l10n-currency 是参照vue-i18n 的vue插件方式实现的一个 货币本地化转换Vue插件。
-Dmoe预览和文档 [vue-l10n-currency example](http://docs.patpat.site/)
+Dmoe预览和文档 [vue-l10n example](http://docs.patpat.site/)
 
 ### 安装
 
 ```
-npm install vue-l10n-currency -D
+npm install vue-l10n -D
 ```
 
 ### 使用
 #### 在Vue项目的main.js中
 
 ```javaScript
-import VueL10nCurrency from 'vue-l10n-currency'
+import VueL10nCurrency from 'vue-l10n'
 Vue.use(VueL10nCurrency)
 const l10nCurrency = new VueL10nCurrency({
   isoCode: 'USD',
