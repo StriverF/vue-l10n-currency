@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">例子</router-link>
-      <router-link to="/doc">文档</router-link>
+      <router-link to="/" class="tab">例子</router-link>
+      <router-link to="/doc"  class="tab">文档</router-link>
     </div>
     <router-view/>
   </div>
