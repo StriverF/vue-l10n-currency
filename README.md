@@ -58,7 +58,9 @@ new Vue({
 ```
 
 ### API文档
-** Vue全局对象 **
+
+**Vue全局对象**
+
 l10nCurrency
 
 `this.$l10nCurrency `
