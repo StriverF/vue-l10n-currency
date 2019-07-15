@@ -1,0 +1,73 @@
+/*
+* import stylesheets
+*/
+
+/*去掉input type=number的默认状态*/
+html{
+  min-width: 767px;
+}
+*{
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+}
+
+body{
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #444;
+  background-color: #fff;
+  padding-bottom:0 !important;
+  margin: 0;
+  font-family: 'patpat-regular', sans-serif;
+  font-weight: 400;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+  font-family: 'patpat-medium', sans-serif;
+  font-weight: 400;
+  margin:0;
+  padding: 0;
+  color: inherit;
+}
+ul,li,ol{padding: 0;margin: 0;list-style: none;}
+img{vertical-align: middle;border: none;}
+*{
+  padding: 0;
+  margin: 0;
+  font-style: normal;
+  font-size:14px;
+  color:#444;
+  text-decoration: none;
+}
+
+/* 浮动 */
+.left{
+  float:left;
+}
+.right{
+  float:right;
+}
+
+/* 网站内容区域宽度 */
+.container{
+  margin:auto;
+  padding:0 10px;
+  max-width:1300px;
+  min-width:767px;
+}
+
+/*清除浮动*/
+.clearfix:before,
+.clearfix:after{
+  content: " ";
+  display: table;
+}
+.clearfix:after{
+  clear: both;
+}
