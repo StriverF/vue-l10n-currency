@@ -12,6 +12,17 @@ module.exports = {
 
   // 输出文件目录
   outputDir: 'docs',
+  configureWebpack: {
+    module: {
+      rules: [
+        {
+          test: /\.md$/,
+          loader: 'text-loader'
+        }
+      ]
+    }
+  }
+
     // chainWebpack: config => {
     //   config.module
     //     .rule('js')
