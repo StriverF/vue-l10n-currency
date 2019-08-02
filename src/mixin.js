@@ -19,7 +19,7 @@ export default {
       this._l10nCurrency = options.parent.$l10nCurrency
       this._l10nCurrency.subscribeDataChanging(this)
     }
-    console.log('[vue-l10n-currency] already beforeCreate.')
+    // console.log('[vue-l10n-currency] already beforeCreate.')
   },
 
   beforeDestroy () {
@@ -38,6 +38,6 @@ export default {
       }
       self._l10nCurrency = null
     })
-    console.log('[vue-l10n-currency] already beforeDestroy.')
+    // console.log('[vue-l10n-currency] already beforeDestroy.')
   }
 }

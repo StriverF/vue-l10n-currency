@@ -122,20 +122,20 @@ var VueL10nCurrency = class VueL10nCurrency {
   }
 
   _uts (usdAmount, computeType, usdToSelfExchangeRate, symbolDisplay) {
-    console.log('[vue-l10n-currency] _uts.')
+    // console.log('[vue-l10n-currency] _uts.')
     let selfAmount = usdAmount * usdToSelfExchangeRate
     let formatAmount = this._formatAmount(selfAmount, computeType)
     return symbolDisplay + formatAmount
   }
   _stu (selfAmount, computeType, SelfToUsdExchangeRate) {
-    console.log('[vue-l10n-currency] _stu.')
+    // console.log('[vue-l10n-currency] _stu.')
     let usdAmount = selfAmount * SelfToUsdExchangeRate
     let formatAmount = this._formatAmount(usdAmount, computeType)
     return formatAmount
   }
 
   _textUts (usdText, computeType, usdToSelfExchangeRate, symbolDisplay) {
-    console.log('[vue-l10n-currency] _textUts.')
+    // console.log('[vue-l10n-currency] _textUts.')
     let selfText = usdText
     let l10n = this
     if (typeof (usdText) === 'string' && usdText !== '') {
