@@ -1,6 +1,6 @@
 {
   "name": "vue-l10n",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "vue l10n currency",
   "main": "lib/vue-l10n-currency.umd.min.js",
   "private": false,
