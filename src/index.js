@@ -24,11 +24,17 @@ var VueL10nCurrency = class VueL10nCurrency {
     const stuExchangeRate = options.stuExchangeRate || '1'
     const utsExchangeRate = options.utsExchangeRate || '1'
     const symbolDisplay = options.symbolDisplay || '$'
+    const symbolPosition = options.symbolPosition || 0
+    const decimalSymbol = options.decimalSymbol || '.'
+    const thousandSeparator = options.thousandSeparator || ''
     const currency = {
       isoCode,
       stuExchangeRate,
       utsExchangeRate,
-      symbolDisplay
+      symbolDisplay,
+      symbolPosition,
+      decimalSymbol,
+      thousandSeparator
     }
 
     this._vm = null
@@ -99,7 +105,7 @@ var VueL10nCurrency = class VueL10nCurrency {
     this._vm.$set(this._vm, 'currency', currency)
   }
 
-  _formatAmount (amount, computeType) {
+  _formatAmount (amount, computeType, decimalSymbol, thousandSeparator) {
     // 保留两位小数四舍五入 e.g: 20.3478 => 20.35, 20.3412 => 20.34, 20.3452 => 20.35
     let result
     if (computeType === this._computeTypeEnum.ROUNDING) {
@@ -118,23 +124,27 @@ var VueL10nCurrency = class VueL10nCurrency {
       // 保留原始计算结果
       result = amount
     }
+    if (thousandSeparator) {
+      var parts = result.toString().split(".");
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousandSeparator);
+      return parts.join(decimalSymbol);
+    }
     return result
   }
 
-  _uts (usdAmount, computeType, usdToSelfExchangeRate, symbolDisplay) {
-    // console.log('[vue-l10n-currency] _uts.')
+  _uts (usdAmount, computeType, usdToSelfExchangeRate, symbolDisplay, symbolPosition, decimalSymbol, thousandSeparator) {
     let selfAmount = usdAmount * usdToSelfExchangeRate
-    let formatAmount = this._formatAmount(selfAmount, computeType)
-    return symbolDisplay + formatAmount
+    let formatAmount = this._formatAmount(selfAmount, computeType, decimalSymbol, thousandSeparator)
+    return symbolPosition ? formatAmount + symbolDisplay : symbolDisplay + formatAmount
   }
-  _stu (selfAmount, computeType, SelfToUsdExchangeRate) {
+  _stu (selfAmount, computeType, SelfToUsdExchangeRate, decimalSymbol, thousandSeparator) {
     // console.log('[vue-l10n-currency] _stu.')
     let usdAmount = selfAmount * SelfToUsdExchangeRate
-    let formatAmount = this._formatAmount(usdAmount, computeType)
+    let formatAmount = this._formatAmount(usdAmount, computeType, decimalSymbol, thousandSeparator)
     return formatAmount
   }
 
-  _textUts (usdText, computeType, usdToSelfExchangeRate, symbolDisplay) {
+  _textUts (usdText, computeType, usdToSelfExchangeRate, symbolDisplay, symbolPosition, decimalSymbol, thousandSeparator) {
     // console.log('[vue-l10n-currency] _textUts.')
     let selfText = usdText
     let l10n = this
@@ -144,8 +154,8 @@ var VueL10nCurrency = class VueL10nCurrency {
         let replaceTxt = usdText.replace(reg, function (value) {
           let usdAmount = value.slice(1)
           let selfAmount = usdAmount * usdToSelfExchangeRate
-          let formatAmount = l10n._formatAmount(selfAmount, computeType)
-          return symbolDisplay + formatAmount
+          let formatAmount = l10n._formatAmount(selfAmount, computeType, decimalSymbol, thousandSeparator)
+          return symbolPosition ? formatAmount + symbolDisplay : symbolDisplay + formatAmount
         })
         selfText = replaceTxt
       }
@@ -155,6 +165,6 @@ var VueL10nCurrency = class VueL10nCurrency {
 }
 
 VueL10nCurrency.install = install
-VueL10nCurrency.version = '1.0.1'
+VueL10nCurrency.version = '1.0.2'
 
 export default VueL10nCurrency

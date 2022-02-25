@@ -31,14 +31,20 @@
         <span>将一段字符串中的$符号的金额，按照汇率从USD(美元)转换为Self(本地货币)，保留两位小数四舍五入</span>
         <p>{{$textUts("这个金额是$23.5,那个金额是$18.99")}}</p>
       </li>
-      
+
       <li>
         <span>将一段字符串中的$符号的金额，按照汇率从USD(美元)转换为Self(本地货币)，保留整数四舍五入</span>
         <p>{{$textUtsi("这个金额是$23.5,那个金额是$18.99")}}</p>
       </li>
+
+      <li>
+        <span>将一段字符串中的$符号的金额，按照汇率从USD(美元)转换为Self(本地货币)</span>
+        <p>{{$textUts("这个金额是$236893.5,那个金额是$18.99")}}</p>
+      </li>
     </ul>
     <button class="c-button" @click="cL10nUSD()">切换切换货币USD</button>
     <button class="c-button" @click="cL10nCNY()">切换切换货币CNY</button>
+    <button class="c-button" @click="cL10nCNY1()">切换切换货币CNY以及千位分割符号，小数点符号</button>
   </div>
 </template>
 
@@ -55,7 +61,26 @@ export default {
         isoCode,
         stuExchangeRate,
         utsExchangeRate,
-        symbolDisplay
+        symbolDisplay,
+      }
+    },
+    cL10nCNY1 () {
+      console.log("点击切换货币CNY1")
+      const isoCode = 'CNY'
+      const utsExchangeRate = 6.85765
+      const stuExchangeRate = 0.14582
+      const symbolDisplay = '￥'
+      const symbolPosition = 1
+      const decimalSymbol = ','
+      const thousandSeparator = ' '
+      this.$l10nCurrency.currency = {
+        isoCode,
+        stuExchangeRate,
+        utsExchangeRate,
+        symbolDisplay,
+        symbolPosition,
+        decimalSymbol,
+        thousandSeparator
       }
     },
     cL10nUSD () {
@@ -72,7 +97,6 @@ export default {
       }
     }
   }
-    
 }
 </script>
 <style scoped>

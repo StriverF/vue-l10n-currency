@@ -17,7 +17,10 @@ export default function extend (Vue) {
     const computeType = l10nCurrency._computeTypeEnum.ROUNDING
     const utsExchangeRate = l10nCurrency.currency.utsExchangeRate
     const symbolDisplay = l10nCurrency.currency.symbolDisplay
-    return l10nCurrency._uts(usdAmount, computeType, utsExchangeRate, symbolDisplay)
+    const symbolPosition = l10nCurrency.currency.symbolPosition
+    const decimalSymbol = l10nCurrency.currency.decimalSymbol
+    const thousandSeparator = l10nCurrency.currency.thousandSeparator
+    return l10nCurrency._uts(usdAmount, computeType, utsExchangeRate, symbolDisplay, symbolPosition, decimalSymbol, thousandSeparator)
   }
 
   /**
@@ -28,7 +31,10 @@ export default function extend (Vue) {
     const computeType = l10nCurrency._computeTypeEnum.CARRY
     const utsExchangeRate = l10nCurrency.currency.utsExchangeRate
     const symbolDisplay = l10nCurrency.currency.symbolDisplay
-    return l10nCurrency._uts(usdAmount, computeType, utsExchangeRate, symbolDisplay)
+    const symbolPosition = l10nCurrency.currency.symbolPosition
+    const decimalSymbol = l10nCurrency.currency.decimalSymbol
+    const thousandSeparator = l10nCurrency.currency.thousandSeparator
+    return l10nCurrency._uts(usdAmount, computeType, utsExchangeRate, symbolDisplay, symbolPosition, decimalSymbol, thousandSeparator)
   }
 
   /**
@@ -39,7 +45,10 @@ export default function extend (Vue) {
     const computeType = l10nCurrency._computeTypeEnum.TRUNCATION
     const utsExchangeRate = l10nCurrency.currency.utsExchangeRate
     const symbolDisplay = l10nCurrency.currency.symbolDisplay
-    return l10nCurrency._uts(usdAmount, computeType, utsExchangeRate, symbolDisplay)
+    const symbolPosition = l10nCurrency.currency.symbolPosition
+    const decimalSymbol = l10nCurrency.currency.decimalSymbol
+    const thousandSeparator = l10nCurrency.currency.thousandSeparator
+    return l10nCurrency._uts(usdAmount, computeType, utsExchangeRate, symbolDisplay, symbolPosition, decimalSymbol, thousandSeparator)
   }
 
   /**
@@ -49,7 +58,9 @@ export default function extend (Vue) {
     const l10nCurrency = this.$l10nCurrency
     const computeType = l10nCurrency._computeTypeEnum.ROUNDING
     const stuExchangeRate = l10nCurrency.currency.stuExchangeRate
-    return l10nCurrency._stu(selfAmount, computeType, stuExchangeRate)
+    const decimalSymbol = l10nCurrency.currency.decimalSymbol
+    const thousandSeparator = l10nCurrency.currency.thousandSeparator
+    return l10nCurrency._stu(selfAmount, computeType, stuExchangeRate, decimalSymbol, thousandSeparator)
   }
 
   /**
@@ -59,7 +70,9 @@ export default function extend (Vue) {
     const l10nCurrency = this.$l10nCurrency
     const computeType = l10nCurrency._computeTypeEnum.ORIGINAL
     const stuExchangeRate = l10nCurrency.currency.stuExchangeRate
-    return l10nCurrency._stu(selfAmount, computeType, stuExchangeRate)
+    const decimalSymbol = l10nCurrency.currency.decimalSymbol
+    const thousandSeparator = l10nCurrency.currency.thousandSeparator
+    return l10nCurrency._stu(selfAmount, computeType, stuExchangeRate, decimalSymbol, thousandSeparator)
   }
 
   /**
@@ -70,7 +83,10 @@ export default function extend (Vue) {
     const computeType = l10nCurrency._computeTypeEnum.ROUNDING
     const utsExchangeRate = l10nCurrency.currency.utsExchangeRate
     const symbolDisplay = l10nCurrency.currency.symbolDisplay
-    return l10nCurrency._textUts(usdText, computeType, utsExchangeRate, symbolDisplay)
+    const symbolPosition = l10nCurrency.currency.symbolPosition
+    const decimalSymbol = l10nCurrency.currency.decimalSymbol
+    const thousandSeparator = l10nCurrency.currency.thousandSeparator
+    return l10nCurrency._textUts(usdText, computeType, utsExchangeRate, symbolDisplay, symbolPosition, decimalSymbol, thousandSeparator)
   }
 
   /**
@@ -81,6 +97,9 @@ export default function extend (Vue) {
     const computeType = l10nCurrency._computeTypeEnum.INT
     const utsExchangeRate = l10nCurrency.currency.utsExchangeRate
     const symbolDisplay = l10nCurrency.currency.symbolDisplay
-    return l10nCurrency._textUts(usdText, computeType, utsExchangeRate, symbolDisplay)
+    const symbolPosition = l10nCurrency.currency.symbolPosition
+    const decimalSymbol = l10nCurrency.currency.decimalSymbol
+    const thousandSeparator = l10nCurrency.currency.thousandSeparator
+    return l10nCurrency._textUts(usdText, computeType, utsExchangeRate, symbolDisplay, symbolPosition, decimalSymbol, thousandSeparator)
   }
 }

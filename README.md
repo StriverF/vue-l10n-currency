@@ -73,7 +73,10 @@ currency: {
     isoCode:'USD',
     stuExchangeRate: 1,
     utsExchangeRate: 1,
-    symbolDisplay: ‘$’
+    symbolDisplay: ‘$’,  // 货币符号
+    symbolPosition: 0,  // 货币符号位置 0 为前， 1 为后
+    decimalSymbol: '.',  // 小数点符号， 默认 .
+    thousandSeparator: ''  // 千位分隔符， 默认不分割
 }
 _computeTypeEnum: {
     ROUNDING: 'rounding', // 保留两位小数，四舍五入
