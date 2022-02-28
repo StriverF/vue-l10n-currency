@@ -9,6 +9,8 @@ var VueL10nCurrency = class VueL10nCurrency {
     CARRY: 'carry', // 保留两位小数，后面有值就进位
     TRUNCATION: 'truncation', // 保留两位小数，直接舍去后面的小数
     INT: 'int', // 保留整数，四舍五入
+    ROUNDUP:'roundup', // 保留整数，向上取整
+    ROUNDDOWN:'rounddown', // 保留整数，向下取整
     ORIGINAL: 'original' // 保留原始计算结果
   }
   _vm
@@ -120,6 +122,12 @@ var VueL10nCurrency = class VueL10nCurrency {
     } else if (computeType === this._computeTypeEnum.INT) {
       // 保留整数四舍五入 e.g: 20.3478 => 20, 20.5412 => 21
       result = amount.toFixed()
+    } else if (computeType === this._computeTypeEnum.ROUNDUP) {
+      // 向上取整 e.g: 20.3478 => 21, 20.5412 => 21
+      result = Math.ceil(amount)
+    } else if (computeType === this._computeTypeEnum.ROUNDDOWN) {
+      // 向下取整 e.g: 20.3478 => 20, 20.5412 => 20
+      result = Math.floor(amount)
     } else {
       // 保留原始计算结果
       result = amount
@@ -138,7 +146,6 @@ var VueL10nCurrency = class VueL10nCurrency {
     return symbolPosition ? formatAmount + symbolDisplay : symbolDisplay + formatAmount
   }
   _stu (selfAmount, computeType, SelfToUsdExchangeRate, decimalSymbol, thousandSeparator) {
-    // console.log('[vue-l10n-currency] _stu.')
     let usdAmount = selfAmount * SelfToUsdExchangeRate
     let formatAmount = this._formatAmount(usdAmount, computeType, decimalSymbol, thousandSeparator)
     return formatAmount
