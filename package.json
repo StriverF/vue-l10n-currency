@@ -20,9 +20,9 @@
     "build:docs": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
-    "release-patch": "npm version patch -m 'tag: update version %s patch' && npm run branch-merge",
-    "release-minor": "npm version minor -m 'tag: update version %s minor' && npm run branch-merge",
-    "release-major": "npm version major -m 'tag: update version %s major' && npm run branch-merge"
+    "release-patch": "npm version patch -m 'tag: update version %s patch'",
+    "release-minor": "npm version minor -m 'tag: update version %s minor'",
+    "release-major": "npm version major -m 'tag: update version %s major'"
   },
   "dependencies": {
     "core-js": "^2.6.5",
