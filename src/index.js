@@ -136,6 +136,8 @@ var VueL10nCurrency = class VueL10nCurrency {
       var parts = result.toString().split(".");
       parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousandSeparator);
       return parts.join(decimalSymbol);
+    } else if (decimalSymbol) {
+      result = result.toString().replace('.', decimalSymbol)
     }
     return result
   }
