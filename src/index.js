@@ -5,10 +5,13 @@ var VueL10nCurrency = class VueL10nCurrency {
   static version
 
   _computeTypeEnum = {
+    DEFAULT: 'default',   // 默认ICU标准全数据格式
     ROUNDING: 'rounding', // 保留两位小数，四舍五入
     CARRY: 'carry', // 保留两位小数，后面有值就进位
     TRUNCATION: 'truncation', // 保留两位小数，直接舍去后面的小数
     INT: 'int', // 保留整数，四舍五入
+    INT_CARRY: 'int_carry', // 整数进位
+    INT_TRUNCATION: 'int_truncation', // 整数舍去小数
     ORIGINAL: 'original' // 保留原始计算结果
   }
   _vm
@@ -24,11 +27,13 @@ var VueL10nCurrency = class VueL10nCurrency {
     const stuExchangeRate = options.stuExchangeRate || '1'
     const utsExchangeRate = options.utsExchangeRate || '1'
     const symbolDisplay = options.symbolDisplay || '$'
+    const locales = options.locales || 'en-US'
     const currency = {
       isoCode,
       stuExchangeRate,
       utsExchangeRate,
-      symbolDisplay
+      symbolDisplay,
+      locales
     }
 
     this._vm = null
@@ -100,42 +105,61 @@ var VueL10nCurrency = class VueL10nCurrency {
   }
 
   _formatAmount (amount, computeType) {
-    // 保留两位小数四舍五入 e.g: 20.3478 => 20.35, 20.3412 => 20.34, 20.3452 => 20.35
-    let result
-    if (computeType === this._computeTypeEnum.ROUNDING) {
-      // 保留两位小数进位 e.g: 20.3478 => 20.35, 20.3412 => 20.35, 20.3452 => 20.35
-      result = amount.toFixed(2)
-    } else if (computeType === this._computeTypeEnum.CARRY) {
-      // 保留两位小数进位 e.g: 20.3478 => 20.35, 20.3412 => 20.35, 20.3452 => 20.35
-      result = Math.ceil(amount * 100) / 100
-    } else if (computeType === this._computeTypeEnum.TRUNCATION) {
-      // 保留两位小数不进位 e.g: 20.3478 => 20.34, 20.3412 => 20.34, 20.3452 => 20.34
-      result = Math.floor(amount * 100) / 100
-    } else if (computeType === this._computeTypeEnum.INT) {
-      // 保留整数四舍五入 e.g: 20.3478 => 20, 20.5412 => 21
-      result = amount.toFixed()
-    } else {
-      // 保留原始计算结果
-      result = amount
+    let computeResult
+    switch (computeType) {
+      case this._computeTypeEnum.DEFAULT:
+        computeResult = amount
+        break
+      case this._computeTypeEnum.ROUNDING:
+        computeResult = amount.toFixed(2)
+        break
+      case this._computeTypeEnum.CARRY:
+        computeResult = Math.ceil(amount * 100) / 100
+        break
+      case this._computeTypeEnum.TRUNCATION:
+        computeResult = Math.floor(amount * 100) / 100
+        break
+      case this._computeTypeEnum.INT:
+        computeResult = amount.toFixed()
+        break
+      case this._computeTypeEnum.INT_CARRY:
+        computeResult = Math.ceil(amount)
+        break
+      case this._computeTypeEnum.INT_TRUNCATION:
+        computeResult = Math.floor(amount)
+        break
+      case this._computeTypeEnum.ORIGINAL:
+        computeResult = amount
+        break
+      default:
+        computeResult = amount
+        break
     }
-    return result
+    let formatResult = computeResult
+    if (computeType != this._computeTypeEnum.ORIGINAL) {
+      const options = { style: 'currency', currency: this.currency.isoCode }
+      if ([this._computeTypeEnum.INT, this._computeTypeEnum.INT_CARRY, this._computeTypeEnum.INT_TRUNCATION].includes(computeType)) {
+        options.minimumFractionDigits = 0
+      } else if ([this._computeTypeEnum.ROUNDING, this._computeTypeEnum.CARRY, this._computeTypeEnum.TRUNCATION].includes(computeType)) {
+        options.minimumFractionDigits = 2
+      }
+      formatResult = new Intl.NumberFormat(this.currency.locales, options).format(computeResult)
+    }
+    return formatResult
   }
 
-  _uts (usdAmount, computeType, usdToSelfExchangeRate, symbolDisplay) {
+  _uts (usdAmount, computeType, usdToSelfExchangeRate) {
     // console.log('[vue-l10n-currency] _uts.')
     let selfAmount = usdAmount * usdToSelfExchangeRate
-    let formatAmount = this._formatAmount(selfAmount, computeType)
-    return symbolDisplay + formatAmount
+    return this._formatAmount(selfAmount, computeType)
   }
   _stu (selfAmount, computeType, SelfToUsdExchangeRate) {
     // console.log('[vue-l10n-currency] _stu.')
     let usdAmount = selfAmount * SelfToUsdExchangeRate
-    let formatAmount = this._formatAmount(usdAmount, computeType)
-    return formatAmount
+    return this._formatAmount(usdAmount, computeType)
   }
 
-  _textUts (usdText, computeType, usdToSelfExchangeRate, symbolDisplay) {
-    // console.log('[vue-l10n-currency] _textUts.')
+  _textUts (usdText, computeType, usdToSelfExchangeRate) {
     let selfText = usdText
     let l10n = this
     if (typeof (usdText) === 'string' && usdText !== '') {
@@ -144,8 +168,7 @@ var VueL10nCurrency = class VueL10nCurrency {
         let replaceTxt = usdText.replace(reg, function (value) {
           let usdAmount = value.slice(1)
           let selfAmount = usdAmount * usdToSelfExchangeRate
-          let formatAmount = l10n._formatAmount(selfAmount, computeType)
-          return symbolDisplay + formatAmount
+          return l10n._formatAmount(selfAmount, computeType)
         })
         selfText = replaceTxt
       }

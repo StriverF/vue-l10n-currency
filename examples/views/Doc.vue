@@ -1,14 +1,12 @@
 <template>
   <div class="main container">
     <vue-markdown class="article" :source="content" v-highlight></vue-markdown>
-    <!-- <mark-down :initialValue ='md' :theme='vscode'/> -->
   </div>
 </template>
 
 <script>
 import VueMarkdown from 'vue-markdown';
 import readme from '../../README.md'
-import MarkDown from 'vue-meditor'
 
 export default {
   data() {
@@ -18,7 +16,7 @@ export default {
     }
   },
   components:{
-    VueMarkdown, MarkDown
+    VueMarkdown
   },
   mounted () {
     // debugger

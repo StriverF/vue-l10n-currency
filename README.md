@@ -10,7 +10,24 @@ Dmoe预览和文档 [vue-l10n example](http://docs.patpat.site/)
 npm install vue-l10n -D
 ```
 
+### v1.1.0 版本后弃用以下函数
+弃用utsc、utst、stuo、textUtsi，改用uts、stu、textUts通过传第二个参数来确定输出格式
+
+
+```javaScript
+{
+  DEFAULT: 'default',   // 默认ICU标准全数据格式
+  ROUNDING: 'rounding', // 保留两位小数，四舍五入
+  CARRY: 'carry', // 保留两位小数，后面有值就进位
+  TRUNCATION: 'truncation', // 保留两位小数，直接舍去后面的小数
+  INT: 'int', // 保留整数，四舍五入
+  INT_CARRY: 'int_carry', // 整数进位
+  INT_TRUNCATION: 'int_truncation', // 整数舍去小数
+  ORIGINAL: 'original' // 保留原始计算结果
+}
+```
 ### 使用
+
 #### 在Vue项目的main.js中
 
 ```javaScript
@@ -20,7 +37,8 @@ const l10nCurrency = new VueL10nCurrency({
   isoCode: 'USD',
   stuExchangeRate: 1,
   utsExchangeRate: 1,
-  symbolDisplay: '$'
+  symbolDisplay: '$',
+  locales: 'en-US'
 })
 
 new Vue({
@@ -34,12 +52,11 @@ new Vue({
 #### 在Vue项目的模板中
 
 ```javaScript
-  <p>{{$uts(34.62)}}</p> // 按照汇率从USD(美元)转换为Self(本地货币)，保留两位小数四舍五入
-  <p>{{$utsc(34.62)}}</p> // 按照汇率从USD(美元)转换为Self(本地货币)，保留两位小数,两位小数后值大于0就进位
-  <p>{{$utst(34.62)}}</p> // 按照汇率从USD(美元)转换为Self(本地货币)，保留两位小数,舍去两位小数后的值不进位
-  <p>{{$stu(237.41)}}</p> // 按照汇率从Self(本地货币)转换为USD(美元)保留两位小数四舍五入
-  <p>{{$textUts("这个金额是$23.5,那个金额是$18.99")}}</p> // 将一段字符串中的$符号的金额，按照汇率从USD(美元)转换为Self(本地货币)，保留两位小数四舍五入
-  <p>{{$textUtsi("这个金额是$23.5,那个金额是$18.99")}}</p> // 将一段字符串中的$符号的金额，按照汇率从USD(美元)转换为Self(本地货币)，保留整数四舍五入
+  <p>{{$uts(1818340.62)}}</p> // 按照汇率从USD(美元)转换为Self(本地货币)，IUC标准本地化货币格式, 按照本地货币标准保留小数位
+  <p>{{$uts(1818340.62, 'rounding')}}</p> // 按照汇率从USD(美元)转换为Self(本地货币)，IUC标准本地化货币格式, 保留两位小数四舍五入
+  <p>{{$uts(1818340.62, 'int')}}</p> // 按照汇率从USD(美元)转换为Self(本地货币)，IUC标准本地化货币格式，保留整数四舍五入
+  <p>{{$stu(1818340.62, 'int')}}</p> // 按照汇率从Self(本地货币)转换为USD(美元)，IUC标准本地化货币格式，保留整数四舍五入
+  <p>{{$textUts("Text金额$1818340.62，金额$818340.62", 'rounding')}}</p> // 将一段字符串中的$符号的金额，按照汇率从USD(美元)转换为Self(本地货币)，保留两位小数四舍五入
 ```
 
 #### 在js中切换货币
@@ -49,11 +66,13 @@ new Vue({
   const utsExchangeRate = 6.85765
   const stuExchangeRate = 0.14582
   const symbolDisplay = '￥'
+  const locales = 'zh-CN'
   this.$l10nCurrency.currency = {
     isoCode,
     stuExchangeRate,
     utsExchangeRate,
-    symbolDisplay
+    symbolDisplay,
+    locales
   }
 ```
 
@@ -68,33 +87,39 @@ l10nCurrency
 对象属性：
  
 
-```
-currency: {
+```javaScript
+// 初始化参数
+{
     isoCode:'USD',
     stuExchangeRate: 1,
     utsExchangeRate: 1,
-    symbolDisplay: ‘$’
+    symbolDisplay: ‘$’,
+    locales: 'en-US'
 }
-_computeTypeEnum: {
-    ROUNDING: 'rounding', // 保留两位小数，四舍五入
-    CARRY: 'carry', // 保留两位小数，后面有值就进位
-    TRUNCATION: 'truncation', // 保留两位小数，直接舍去后面的小数
-    INT: 'int', // 保留整数，四舍五入
-    ORIGINAL: 'original' // 保留原始计算结果
+
+// type参数枚举
+{
+  DEFAULT: 'default',   // 默认ICU标准全数据格式
+  ROUNDING: 'rounding', // 保留两位小数，四舍五入
+  CARRY: 'carry', // 保留两位小数，后面有值就进位
+  TRUNCATION: 'truncation', // 保留两位小数，直接舍去后面的小数
+  INT: 'int', // 保留整数，四舍五入
+  INT_CARRY: 'int_carry', // 整数进位
+  INT_TRUNCATION: 'int_truncation', // 整数舍去小数
+  ORIGINAL: 'original' // 保留原始计算结果
 }
 ```
 
 | Vue全局函数 | 使用 | 描述 |
 | --- | --- | --- |
-| uts  | $uts(34.62)  | 美元转当地货币金额（保留两位小数，四舍五入） |
-| utsc | $utsc(34.62) | 美元转当地货币金额（保留两位小数，后面有值就进位） |
-| utst | $utst(34.62) | 美元转当地货币金额（保留两位小数，直接舍去后面的小数） |
-| stu | $stu(237.41) | 当地货币美元金额（保留两位小数，四舍五入） |
-| stuo | $stuo(237.41) | 当地货币美元金额（保留原始计算结果） |
-| textUts | $textUts("这个金额是$23.5,那个金额是$18.99") | 美元字符串转当地货币字符串（保留两位小数，四舍五入） |
-| textUtsi | $textUtsi("这个金额是$23.5,那个金额是$18.99") | 美元字符串转当地货币字符串（保留整数，四舍五入） |
+| uts  | $uts(34.62)  | 美元转当地货币金额, 可选传第二个type参数 |
+| stu | $stu(237.41) | 当地货币美元金额, 可选传第二个type参数 |
+| textUts | $textUts("Text金额$1818340.62，金额$818340.62", 'int') | 美元字符串转当地货币字符串, 可选传第二个type参数 |
 
 
+
+---
+---
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
