@@ -5,14 +5,15 @@ var VueL10nCurrency = class VueL10nCurrency {
   static version
 
   _computeTypeEnum = {
-    DEFAULT: 'default',   // 默认ICU标准全数据格式
-    ROUNDING: 'rounding', // 保留两位小数，四舍五入
-    CARRY: 'carry', // 保留两位小数，后面有值就进位
-    TRUNCATION: 'truncation', // 保留两位小数，直接舍去后面的小数
-    INT: 'int', // 保留整数，四舍五入
-    INT_CARRY: 'int_carry', // 整数进位
-    INT_TRUNCATION: 'int_truncation', // 整数舍去小数
-    ORIGINAL: 'original' // 保留原始计算结果
+    DEFAULT: 'default',                 // 默认ICU标准全数据格式
+    ROUNDING: 'rounding',               // 保留两位小数，四舍五入
+    CARRY: 'carry',                     // 保留两位小数，后面有值就进位
+    TRUNCATION: 'truncation',           // 保留两位小数，直接舍去后面的小数
+    INT: 'int',                         // 保留整数，四舍五入
+    INT_CARRY: 'int_carry',             // 整数进位
+    INT_TRUNCATION: 'int_truncation',   // 整数舍去小数
+    INT_RT: 'int_rt',                   // 先保留两位小数四舍五入，再取整数舍去小数，避免小数临界四舍五入只正好进位到整数
+    ORIGINAL: 'original'                // 保留原始计算结果
   }
   _vm
   _root
@@ -128,6 +129,10 @@ var VueL10nCurrency = class VueL10nCurrency {
       case this._computeTypeEnum.INT_TRUNCATION:
         computeResult = Math.floor(amount)
         break
+      case this._computeTypeEnum.INT_RT:
+        computeResult = amount.toFixed(2)
+        computeResult = Math.floor(computeResult)
+        break
       case this._computeTypeEnum.ORIGINAL:
         computeResult = amount
         break
@@ -138,9 +143,20 @@ var VueL10nCurrency = class VueL10nCurrency {
     let formatResult = computeResult
     if (computeType != this._computeTypeEnum.ORIGINAL) {
       const options = { style: 'currency', currency: this.currency.isoCode }
-      if ([this._computeTypeEnum.INT, this._computeTypeEnum.INT_CARRY, this._computeTypeEnum.INT_TRUNCATION].includes(computeType)) {
+      const intTypeArr = [
+        this._computeTypeEnum.INT, 
+        this._computeTypeEnum.INT_CARRY, 
+        this._computeTypeEnum.INT_TRUNCATION, 
+        this._computeTypeEnum.INT_RT
+      ]
+      const decimalsTypeArr = [
+        this._computeTypeEnum.ROUNDING, 
+        this._computeTypeEnum.CARRY, 
+        this._computeTypeEnum.TRUNCATION
+      ]
+      if (intTypeArr.includes(computeType)) {
         options.minimumFractionDigits = 0
-      } else if ([this._computeTypeEnum.ROUNDING, this._computeTypeEnum.CARRY, this._computeTypeEnum.TRUNCATION].includes(computeType)) {
+      } else if (decimalsTypeArr.includes(computeType)) {
         options.minimumFractionDigits = 2
       }
       formatResult = new Intl.NumberFormat(this.currency.locales, options).format(computeResult)

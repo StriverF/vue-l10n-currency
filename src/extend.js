@@ -13,7 +13,7 @@ export default function extend (Vue) {
   /**
    * 美元转当地货币金额
    * @param {*} usdAmount 
-   * @param {*} type 
+   * @param {*} type _computeTypeEnum
    * @returns 
    */
   Vue.prototype.$uts = function (usdAmount, type = 'default') {
@@ -27,7 +27,7 @@ export default function extend (Vue) {
   /**
    * 当地货币转美元金额
    * @param {*} selfAmount 
-   * @param {*} type 
+   * @param {*} type _computeTypeEnum
    * @returns 
    */
   Vue.prototype.$stu = function (selfAmount, type = 'default') {
@@ -38,7 +38,10 @@ export default function extend (Vue) {
   }
 
   /**
-   * 美元字符串转当地货币字符串（保留两位小数，四舍五入）
+   * 美元字符串转当地货币字符串
+   * @param {*} usdText 
+   * @param {*} type _computeTypeEnum
+   * @returns 
    */
   Vue.prototype.$textUts = function (usdText, type = 'default') {
     const l10nCurrency = this.$l10nCurrency
