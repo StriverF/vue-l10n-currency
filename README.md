@@ -11,7 +11,7 @@ npm install vue-l10n -D
 ```
 
 ### v1.1.0 版本后弃用以下函数
-弃用utsc、utst、stuo、textUtsi，改用uts、stu、textUts通过传第二个参数来确定输出格式
+弃用utsc、utst、stuo、textUtsi、utsu、utsd 改用uts、stu、textUts通过传第二个参数来确定输出格式
 
 
 ```javaScript
@@ -23,6 +23,7 @@ npm install vue-l10n -D
   INT: 'int', // 保留整数，四舍五入
   INT_CARRY: 'int_carry', // 整数进位
   INT_TRUNCATION: 'int_truncation', // 整数舍去小数
+  INT_RT: 'int_rt',                   // 先保留两位小数四舍五入，再取整数舍去小数，避免小数临界四舍五入只正好进位到整数
   ORIGINAL: 'original' // 保留原始计算结果
 }
 ```
@@ -106,6 +107,7 @@ l10nCurrency
   INT: 'int', // 保留整数，四舍五入
   INT_CARRY: 'int_carry', // 整数进位
   INT_TRUNCATION: 'int_truncation', // 整数舍去小数
+  INT_RT: 'int_rt',                   // 先保留两位小数四舍五入，再取整数舍去小数，避免小数临界四舍五入只正好进位到整数
   ORIGINAL: 'original' // 保留原始计算结果
 }
 ```

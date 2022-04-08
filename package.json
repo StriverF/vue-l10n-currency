@@ -19,7 +19,12 @@
     "build:lib": "vue-cli-service build --target lib --dest lib src/index.js",
     "build:docs": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit",
+    "pre-release": "git checkout develop; git pull; git checkout master; git pull; git merge develop; npm run build:docs; npm run build:lib; git add .; git commit -m 'feat: 📦发布版本'; git push",
+    "branch-merge": "git push --tags; git push; git checkout develop; git merge master; git push",
+    "release-patch": "npm run pre-release && npm version patch -m 'tag: 版本更新至 %s patch' && npm publish && npm run branch-merge",
+    "release-minor": "npm run pre-release && npm version minor -m 'tag: 版本更新至 %s minor' && npm publish && npm run branch-merge",
+    "release-major": "npm run pre-release && npm version major -m 'tag: 版本更新至 %s major' && npm publish && npm run branch-merge"
   },
   "dependencies": {
     "core-js": "^2.6.5",

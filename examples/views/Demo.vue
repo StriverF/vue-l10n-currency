@@ -43,8 +43,14 @@
       <li>
         <span>按照汇率从USD(美元)转换为Self(本地货币)，IUC标准本地化货币格式，保留整数舍去小数</span>
         <span> ------------------- </span>
-        <span>$uts(1818340.62, 'int_truncation')</span>
-        <p>{{$uts(1818340.62, 'int_truncation')}}</p>
+        <span>$uts(1818340.997, 'int_truncation')</span>
+        <p>{{$uts(1818340.997, 'int_truncation')}}</p>
+      </li>
+      <li>
+        <span>按照汇率从USD(美元)转换为Self(本地货币)，IUC标准本地化货币格式，保留整数舍去小数</span>
+        <span> ------------------- </span>
+        <span>$uts(1818340.997, 'int_rt')</span>
+        <p>{{$uts(1818340.997, 'int_rt')}}</p>
       </li>
       <li>
         <span>按照汇率从USD(美元)转换为Self(本地货币)，保留原始计算结果</span>
@@ -189,25 +195,7 @@ h3 {
   padding-bottom: 10px;
   border-bottom: 2px solid #dadada;
 }
-/* ul {
-  display: block;
-  padding: 30px 0;
-}
-ul li {
-  padding: 10px 0;
-  border: 1px solid #e4e4e4;
-  margin-bottom: 20px;
-  padding: 10px 20px;
-}
-ul li span {
-  display: block;
-  font-size: 16px;
-}
-ul li p {
-  display: inline-block;
-  padding-top: 10px;
-  color: #ff2556;
-} */
+
 ul {
   display: flex;
   flex-wrap: wrap;
