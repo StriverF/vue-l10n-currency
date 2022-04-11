@@ -194,6 +194,6 @@ var VueL10nCurrency = class VueL10nCurrency {
 }
 
 VueL10nCurrency.install = install
-VueL10nCurrency.version = '1.1.0'
+VueL10nCurrency.version = '1.1.3'
 
 export default VueL10nCurrency

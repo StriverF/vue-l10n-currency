@@ -92,12 +92,12 @@
         <p>{{$textUts("Text金额$1818340.62，金额$818340.62", 'rounding')}}</p>
       </li>
       
-      <li>
+      <!-- <li>
         <span>将一段字符串中的$符号的金额，按照汇率从USD(美元)转换为Self(本地货币)，保留整数四舍五入</span>
         <span> ------------------- </span>
         <span>$textUts("Text金额$1818340.62，金额$818340.62", 'int')</span>
         <p>{{$textUts("Text金额$1818340.62，金额$818340.62", 'int')}}</p>
-      </li>
+      </li> -->
       <li>
         <span>$uts, $stu, $textUts 这三个函数都可以选择传入第二个可选参数：</span>
         <span>'rounding', 'carry', 'truncation', 'int', 'int_carry', 'int_truncation', 'original'</span>
@@ -109,14 +109,15 @@
       <select @change="changeCountry(selectCountry)" v-model="selectCountry">
         <option v-for="country in countryData " :value ="country" :key="country.country_abbreviation">{{country.country_name}}</option>
       </select>
-       货币：
+      货币：
       <select @change="changeCurrency(selectCurrency)" v-model="selectCurrency">
         <option v-for="currency in currencyData " :value ="currency" :key="currency.isoCode">{{currency.isoCode}}</option>
       </select>
-       语言：
+      语言：
       <select @change="changeLanguage(selectLanguage)" v-model="selectLanguage">
         <option v-for="language in languageData " :value ="language" :key="language.abbreviation">{{language.name}}</option>
       </select>
+      <button @click="exportMatchResults">导出当前选中语言匹配任何国家货币</button>
     </div>
   </div>
 </template>
@@ -124,6 +125,8 @@
 <script>
 import countryData from '../assets/data/countryData.json'
 import languageData from '../assets/data/languageData.json'
+import * as xlsx from 'xlsx'
+
 export default {
   data() {
     return {
@@ -183,6 +186,25 @@ export default {
         symbolDisplay,
         locales
       }
+    },
+    exportMatchResults () {
+      let results = []
+      this.countryData.forEach(country => {
+        this.currencyData.forEach(currency => {
+          results.push(
+            {
+              '参数': `${this.selectLanguage.abbreviation}-${country.country_abbreviation}, ${currency.isoCode}`,
+              '结果': new Intl.NumberFormat(`${this.selectLanguage.abbreviation}-${country.country_abbreviation}`, { style: 'currency', currency: currency.isoCode }).format(1818340.62654)
+            }
+          )
+        })
+      })
+      const ws = xlsx.utils.json_to_sheet(results)
+      const wb = xlsx.utils.book_new()
+      xlsx.utils.book_append_sheet(wb, ws, `语言-${this.selectLanguage.abbreviation} 匹配任意国家货币结果`)
+      xlsx.writeFile(wb, `语言-${this.selectLanguage.abbreviation} 匹配任意国家货币结果`)
+      
+      console.log(results)
     }
   }
     
@@ -254,6 +276,7 @@ button {
   outline: none;
   transition: .3s;
   cursor: pointer;
+  margin-left: 20px;
 }
 
 button:hover {

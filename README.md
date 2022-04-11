@@ -3,6 +3,7 @@
 ## 介绍
 vue-l10n-currency 是参照vue-i18n 的vue插件方式实现的一个 货币本地化转换Vue插件。
 Dmoe预览和文档 [vue-l10n example](http://docs.patpat.site/)
+货币格式本地化使用[Intl.NumberFormat](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat#%E4%BE%8B%E5%AD%90)
 
 ### 安装
 
