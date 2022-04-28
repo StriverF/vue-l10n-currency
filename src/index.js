@@ -106,9 +106,9 @@ var VueL10nCurrency = class VueL10nCurrency {
   }
 
   _formatAmount (amount, computeType) {
-    if (this.currency.isoCode === 'PKR') {
+    if (this.currency.isoCode === 'PKR' && computeType !== this._computeTypeEnum.ORIGINAL) {
       // 经过确认PKR货币在本地电商金额都是指保留整数，所以这里统一修正成整数（IUC库的数据格式化处理有小数不符合当地习惯）
-      computeType = this._computeTypeEnum.INT
+      computeType = this._computeTypeEnum.INT_TRUNCATION
     }
     let computeResult
     switch (computeType) {
