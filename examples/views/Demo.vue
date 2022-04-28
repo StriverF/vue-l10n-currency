@@ -117,7 +117,8 @@
       <select @change="changeLanguage(selectLanguage)" v-model="selectLanguage">
         <option v-for="language in languageData " :value ="language" :key="language.abbreviation">{{language.name}}</option>
       </select>
-      <button @click="exportMatchResults">导出当前选中语言匹配任何国家货币</button>
+      <button @click="exportMatchResults">导出当前选中货币匹配任何国家语言</button>
+      <!-- <button @click="exportMatchResults2">导出国家映射货币语言默认货币</button> -->
     </div>
   </div>
 </template>
@@ -190,19 +191,40 @@ export default {
     exportMatchResults () {
       let results = []
       this.countryData.forEach(country => {
-        this.currencyData.forEach(currency => {
+        this.languageData.forEach(language => {
           results.push(
             {
-              '参数': `${this.selectLanguage.abbreviation}-${country.country_abbreviation}, ${currency.isoCode}`,
-              '结果': new Intl.NumberFormat(`${this.selectLanguage.abbreviation}-${country.country_abbreviation}`, { style: 'currency', currency: currency.isoCode }).format(1818340.62654)
+              '参数': `${language.abbreviation}-${country.country_abbreviation}, ${this.selectCurrency.isoCode}`,
+              '结果': new Intl.NumberFormat(`${language.abbreviation}-${country.country_abbreviation}`, { style: 'currency', currency: this.selectCurrency.isoCode }).format(1818340.62654)
             }
           )
         })
       })
       const ws = xlsx.utils.json_to_sheet(results)
       const wb = xlsx.utils.book_new()
-      xlsx.utils.book_append_sheet(wb, ws, `语言-${this.selectLanguage.abbreviation} 匹配任意国家货币结果`)
-      xlsx.writeFile(wb, `语言-${this.selectLanguage.abbreviation} 匹配任意国家货币结果`)
+      xlsx.utils.book_append_sheet(wb, ws, `货币-${this.selectCurrency.isoCode} 匹配任意国家语言结果`)
+      xlsx.writeFile(wb, `货币-${this.selectCurrency.isoCode} 匹配任意国家语言结果.xlsx`)
+      
+      console.log(results)
+    },
+    exportMatchResults2 () {
+      let results = []
+      this.countryData.forEach(country => {
+        const siteLanguage = country.site_language.split('-')[0]
+        results.push(
+            {
+              '参数': `${country.currency_language}-${country.country_abbreviation}, ${country.iso_code}`,
+              '结果': new Intl.NumberFormat(`${country.currency_language}-${country.country_abbreviation}`, { style: 'currency', currency: country.iso_code }).format(123456789.120),
+              'CMS配置货币符号': country.symbol_display,
+              '国家默认语言参数': `${siteLanguage}-${country.country_abbreviation}, ${country.iso_code}`,
+              '国家默认语言结果': new Intl.NumberFormat(`${siteLanguage}-${country.country_abbreviation}`, { style: 'currency', currency: country.iso_code }).format(123456789.120),
+            }
+          )
+      })
+      const ws = xlsx.utils.json_to_sheet(results)
+      const wb = xlsx.utils.book_new()
+      xlsx.utils.book_append_sheet(wb, ws, `国家映射语言默认货币结果`)
+      xlsx.writeFile(wb, `国家映射语言默认货币结果.xlsx`)
       
       console.log(results)
     }
