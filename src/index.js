@@ -110,6 +110,18 @@ var VueL10nCurrency = class VueL10nCurrency {
       // 经过确认PKR货币在本地电商金额都是指保留整数，所以这里统一修正成整数（IUC库的数据格式化处理有小数不符合当地习惯）
       computeType = this._computeTypeEnum.INT
     }
+    const notRoundingType = [
+      this._computeTypeEnum.ORIGINAL,
+      this._computeTypeEnum.INT,
+      this._computeTypeEnum.INT_CARRY,
+      this._computeTypeEnum.INT_TRUNCATION,
+      this._computeTypeEnum.INT_RT,
+    ]
+    if (['KWD', 'OMR', 'BHD', 'TND', 'JOD', 'LYD'].includes(this.currency.isoCode) && !notRoundingType.includes(computeType)) {
+      // 3位小数货币只保留两位小数，四舍五入
+      computeType = this._computeTypeEnum.ROUNDING
+    }
+
     let computeResult
     switch (computeType) {
       case this._computeTypeEnum.DEFAULT:
