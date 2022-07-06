@@ -12,21 +12,21 @@
       <li class="t0">
         <span>按照汇率从USD(美元)转换为Self(本地货币)，IUC标准本地化货币格式, 保留两位小数四舍五入</span>
         <span> ------------------- </span>
-        <span>$uts(1818340.62, 'rounding')</span>
-        <p>{{$uts(1818340.62, 'rounding')}}</p>
+        <span>$uts(1818340.62, 'rounding') --- $uts(44.775, 'rounding')</span>
+        <p>{{$uts(1818340.62, 'rounding')}} --- {{$uts(44.775, 'rounding')}}</p>
       </li>
       
       <li  class="t0">
         <span>按照汇率从USD(美元)转换为Self(本地货币)，IUC标准本地化货币格式, 保留两位小数进位</span>
         <span> ------------------- </span>
-        <span>$uts(1818340.62, 'carry')</span>
-        <p>{{$uts(1818340.62, 'carry')}}</p>
+        <span>$uts(1818340.621, 'carry') --- $uts(44.775, 'carry')</span>
+        <p>{{$uts(1818340.621, 'carry')}} --- {{$uts(44.775, 'carry')}}</p>
       </li>
       <li>
         <span>按照汇率从USD(美元)转换为Self(本地货币)，IUC标准本地化货币格式，保留两位小数,舍去两位小数后的值不进位</span>
         <span> ------------------- </span>
-        <span>$uts(1818340.62, 'truncation')</span>
-        <p>{{$uts(1818340.62, 'truncation')}}</p>
+        <span>$uts(1818340.629, 'truncation')</span>
+        <p>{{$uts(1818340.629, 'truncation')}}</p>
       </li>
       <li>
         <span>按照汇率从USD(美元)转换为Self(本地货币)，IUC标准本地化货币格式，保留整数四舍五入</span>
@@ -47,7 +47,7 @@
         <p>{{$uts(1818340.997, 'int_truncation')}}</p>
       </li>
       <li>
-        <span>按照汇率从USD(美元)转换为Self(本地货币)，IUC标准本地化货币格式，保留整数舍去小数</span>
+        <span>按照汇率从USD(美元)转换为Self(本地货币)，IUC标准本地化货币格式，四舍五入保留整数舍去小数</span>
         <span> ------------------- </span>
         <span>$uts(1818340.997, 'int_rt')</span>
         <p>{{$uts(1818340.997, 'int_rt')}}</p>

@@ -1,4 +1,5 @@
 import { install, Vue } from './install'
+import Big from 'big.js'
 
 var VueL10nCurrency = class VueL10nCurrency {
   static install
@@ -128,13 +129,18 @@ var VueL10nCurrency = class VueL10nCurrency {
         computeResult = amount
         break
       case this._computeTypeEnum.ROUNDING:
+        amount = new Big(amount)
         computeResult = amount.toFixed(2)
         break
       case this._computeTypeEnum.CARRY:
-        computeResult = Math.ceil(amount * 100) / 100
+        amount = new Big(amount)
+        amount = amount.times(100)
+        computeResult = Math.ceil(amount) / 100
         break
       case this._computeTypeEnum.TRUNCATION:
-        computeResult = Math.floor(amount * 100) / 100
+        amount = new Big(amount)
+        amount = amount.times(100)
+        computeResult = Math.floor(amount) / 100
         break
       case this._computeTypeEnum.INT:
         computeResult = amount.toFixed()
@@ -146,6 +152,7 @@ var VueL10nCurrency = class VueL10nCurrency {
         computeResult = Math.floor(amount)
         break
       case this._computeTypeEnum.INT_RT:
+        amount = new Big(amount)
         computeResult = amount.toFixed(2)
         computeResult = Math.floor(computeResult)
         break
