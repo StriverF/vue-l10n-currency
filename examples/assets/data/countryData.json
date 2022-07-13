@@ -2354,5 +2354,25 @@
         "free_shipping_tips": "232.00",
         "extra_shipping_fee": "0",
         "currency_language": "en"
+    },
+    {
+        "language": "es",
+        "position": 0,
+        "separator": ",",
+        "country_name": "Colombia",
+        "is_middle_country": 0,
+        "country_abbreviation": "CO",
+        "national_flag": "http://patpatwebstatic.s3.us-west-2.amazonaws.com/origin/other/country-currency/5dbac547aea98.jpg",
+        "phone_area_code": "57",
+        "site_abb": "la",
+        "site_language": "es",
+        "iso_code": "COP",
+        "symbol_display": "COL$",
+        "decimal_point_style": ".",
+        "self_to_usd_exchange_rate": 0.000228573,
+        "usd_to_self_exchange_rate": 4374.963181,
+        "free_shipping_tips": "90.00",
+        "extra_shipping_fee": "0",
+        "currency_language": "de"
     }
 ]
