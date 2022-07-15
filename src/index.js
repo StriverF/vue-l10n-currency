@@ -186,6 +186,7 @@ var VueL10nCurrency = class VueL10nCurrency {
     }
     formatResult = formatResult.toString()
     formatResult = formatResult.replace('kr.', 'kr')
+    formatResult = formatResult.replace('SGD', 'S$')
     return formatResult
   }
 
