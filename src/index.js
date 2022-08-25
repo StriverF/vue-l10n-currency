@@ -182,7 +182,8 @@ var VueL10nCurrency = class VueL10nCurrency {
       } else if (decimalsTypeArr.includes(computeType)) {
         options.minimumFractionDigits = 2
       }
-      formatResult = new Intl.NumberFormat(this.currency.locales, options).format(computeResult)
+      const newLocales = `${this.currency.locales}--u-nu-latn`
+      formatResult = new Intl.NumberFormat(newLocales, options).format(computeResult)
     }
     formatResult = formatResult.toString()
     formatResult = formatResult.replace(/kr.|Nkr/, 'kr')
@@ -194,7 +195,9 @@ var VueL10nCurrency = class VueL10nCurrency {
 
   _uts (usdAmount, computeType, usdToSelfExchangeRate) {
     // console.log('[vue-l10n-currency] _uts.')
-    let selfAmount = usdAmount * usdToSelfExchangeRate
+    usdAmount = new Big(usdAmount)
+    usdToSelfExchangeRate = new Big(usdToSelfExchangeRate)
+    let selfAmount = usdAmount.times(usdToSelfExchangeRate)
     return this._formatAmount(selfAmount, computeType)
   }
   _stu (selfAmount, computeType, SelfToUsdExchangeRate) {
