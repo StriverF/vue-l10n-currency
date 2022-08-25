@@ -182,7 +182,7 @@ var VueL10nCurrency = class VueL10nCurrency {
       } else if (decimalsTypeArr.includes(computeType)) {
         options.minimumFractionDigits = 2
       }
-      const newLocales = `${this.currency.locales}--u-nu-latn`
+      const newLocales = `${this.currency.locales}-u-nu-latn`
       formatResult = new Intl.NumberFormat(newLocales, options).format(computeResult)
     }
     formatResult = formatResult.toString()
@@ -195,9 +195,15 @@ var VueL10nCurrency = class VueL10nCurrency {
 
   _uts (usdAmount, computeType, usdToSelfExchangeRate) {
     // console.log('[vue-l10n-currency] _uts.')
-    usdAmount = new Big(usdAmount)
+    // usdAmount 传进来的金额的可能是空 usdAmount = ''
+    usdAmount = usdAmount ? new Big(usdAmount) : usdAmount
     usdToSelfExchangeRate = new Big(usdToSelfExchangeRate)
-    let selfAmount = usdAmount.times(usdToSelfExchangeRate)
+    let selfAmount
+    if (usdAmount) {
+      selfAmount = usdAmount.times(usdToSelfExchangeRate)
+    } else {
+      selfAmount = usdAmount * usdToSelfExchangeRate
+    }
     return this._formatAmount(selfAmount, computeType)
   }
   _stu (selfAmount, computeType, SelfToUsdExchangeRate) {
