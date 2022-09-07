@@ -29,6 +29,7 @@
   "dependencies": {
     "babel-runtime": "^6.26.0",
     "core-js": "^3.8.3",
+    "mavon-editor": "^2.10.4",
     "vue": "^2.7.10",
     "vue-router": "^3.6.5"
   },
@@ -42,7 +43,6 @@
     "chai": "^4.3.6",
     "eslint": "^8.23.0",
     "eslint-plugin-vue": "^9.4.0",
-    "highlight.js": "^9.15.8",
     "rollup": "^1.16.7",
     "rollup-plugin-buble": "^0.19.8",
     "rollup-plugin-commonjs": "^10.0.1",
@@ -50,8 +50,6 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-replace": "^2.2.0",
     "text-loader": "0.0.1",
-    "vue-markdown": "^2.2.4",
-    "vue-meditor": "^2.1.2",
     "vue-template-compiler": "^2.7.10",
     "xlsx": "^0.18.5"
   }

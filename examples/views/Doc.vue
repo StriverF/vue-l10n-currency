@@ -1,11 +1,10 @@
 <template>
   <div class="main container">
-    <vue-markdown class="article" :source="content" v-highlight></vue-markdown>
+    <mavon-editor class="article" v-model="content" :scrollStyle="true" defaultOpen="preview" :subfield="false" :toolbarsFlag="false" :editable="false" :ishljs="true"></mavon-editor>
   </div>
 </template>
 
 <script>
-import VueMarkdown from 'vue-markdown';
 import readme from '../../README.md'
 
 export default {
@@ -15,9 +14,7 @@ export default {
       html: ''
     }
   },
-  components:{
-    VueMarkdown
-  },
+
   mounted () {
     // debugger
     // let converter = new showdown.Converter()
