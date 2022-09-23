@@ -30,12 +30,14 @@ var VueL10nCurrency = class VueL10nCurrency {
     const utsExchangeRate = options.utsExchangeRate || '1'
     const symbolDisplay = options.symbolDisplay || '$'
     const locales = options.locales || 'en-US'
+    const type = options.type || 'default'
     const currency = {
       isoCode,
       stuExchangeRate,
       utsExchangeRate,
       symbolDisplay,
-      locales
+      locales,
+      type
     }
 
     this._vm = null
@@ -103,6 +105,9 @@ var VueL10nCurrency = class VueL10nCurrency {
     return this._vm.currency
   }
   set currency (currency) {
+    if (!currency.type) {
+      currency.type = 'default'
+    }
     this._vm.$set(this._vm, 'currency', currency)
   }
 
