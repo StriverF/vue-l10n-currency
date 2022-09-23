@@ -18,7 +18,7 @@ export default function extend (Vue) {
    */
   Vue.prototype.$uts = function (usdAmount, type = 'default') {
     const l10nCurrency = this.$l10nCurrency
-    const computeType = type
+    const computeType = l10nCurrency.currency.type || type
     const utsExchangeRate = l10nCurrency.currency.utsExchangeRate
     const symbolDisplay = l10nCurrency.currency.symbolDisplay
     return l10nCurrency._uts(usdAmount, computeType, utsExchangeRate, symbolDisplay)
@@ -32,7 +32,7 @@ export default function extend (Vue) {
    */
   Vue.prototype.$stu = function (selfAmount, type = 'default') {
     const l10nCurrency = this.$l10nCurrency
-    const computeType = type
+    const computeType = l10nCurrency.type || type
     const stuExchangeRate = l10nCurrency.currency.stuExchangeRate
     return l10nCurrency._stu(selfAmount, computeType, stuExchangeRate)
   }
@@ -45,7 +45,7 @@ export default function extend (Vue) {
    */
   Vue.prototype.$textUts = function (usdText, type = 'default') {
     const l10nCurrency = this.$l10nCurrency
-    const computeType = type
+    const computeType = l10nCurrency.type || type
     const utsExchangeRate = l10nCurrency.currency.utsExchangeRate
     const symbolDisplay = l10nCurrency.currency.symbolDisplay
     return l10nCurrency._textUts(usdText, computeType, utsExchangeRate, symbolDisplay)

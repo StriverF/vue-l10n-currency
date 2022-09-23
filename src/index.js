@@ -1,5 +1,4 @@
 import { install, Vue } from './install'
-import currencyMantissa from '../config/currency_mantissa'
 import Big from 'big.js'
 
 var VueL10nCurrency = class VueL10nCurrency {
@@ -178,7 +177,7 @@ var VueL10nCurrency = class VueL10nCurrency {
         this._computeTypeEnum.CARRY, 
         this._computeTypeEnum.TRUNCATION
       ]
-      if (intTypeArr.includes(computeType) || currencyMantissa.includes(this.currency.isoCode)) {
+      if (intTypeArr.includes(computeType)) {
         options.minimumFractionDigits = 0
         options.maximumFractionDigits = 0
       } else if (decimalsTypeArr.includes(computeType)) {
