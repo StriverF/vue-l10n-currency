@@ -196,7 +196,9 @@ var VueL10nCurrency = class VueL10nCurrency {
     formatResult = formatResult.replace('SGD', 'S$')
     formatResult = formatResult.replace('TRY', 'TL')
     formatResult = formatResult.replace('MAD', 'DH')
+    formatResult = formatResult.replace('CA$', 'CAD $')
     return formatResult
+
   }
 
   _uts (usdAmount, computeType, usdToSelfExchangeRate) {
