@@ -192,11 +192,20 @@ var VueL10nCurrency = class VueL10nCurrency {
       formatResult = new Intl.NumberFormat(newLocales, options).format(computeResult)
     }
     formatResult = formatResult.toString()
-    formatResult = formatResult.replace(/kr.|Nkr/, 'kr')
-    formatResult = formatResult.replace('SGD', 'S$')
-    formatResult = formatResult.replace('TRY', 'TL')
-    formatResult = formatResult.replace('MAD', 'DH')
-    formatResult = formatResult.replace('CA$', 'CAD $')
+    // 部分货币符号展示结果映射
+    const changeCode = {
+      'S$': /SGD/,
+      'TL': /TRY/,
+      'DH': /MAD/,
+      'CAD $': /CA\$/,
+      'kr': /kr\.|Nkr/
+    }
+    for (const key in changeCode) {
+      if (formatResult.search(changeCode[key]) >= 0) {
+        formatResult = formatResult.replace(changeCode[key], key)
+        break
+      }
+    }
     return formatResult
 
   }
