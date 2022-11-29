@@ -4,7 +4,15 @@ import Big from 'big.js'
 var VueL10nCurrency = class VueL10nCurrency {
   static install
   static version
-
+  // 输出货币结果映射
+  _symbol = {
+    SGD: 'SGD', 
+    TRY: 'TL',
+    MAD: 'DH',
+    CA$: 'CAD $',
+    'kr.': 'kr',
+    Nkr: 'kr'
+  }
   _computeTypeEnum = {
     DEFAULT: 'default',                 // 默认ICU标准全数据格式
     ROUNDING: 'rounding',               // 保留两位小数，四舍五入
@@ -189,25 +197,17 @@ var VueL10nCurrency = class VueL10nCurrency {
         options.minimumFractionDigits = 2
       }
       const newLocales = `${this.currency.locales}-u-nu-latn`
-      formatResult = new Intl.NumberFormat(newLocales, options).format(computeResult)
+      const numberFormat = new Intl.NumberFormat(newLocales, options).formatToParts(computeResult)
+      formatResult = ''
+      numberFormat.map(item => {
+        if (this._symbol[item.value]) {
+          item.value = this._symbol[item.value]
+        }
+        formatResult += item.value
+      })
     }
-    formatResult = formatResult.toString()
-    // 部分货币符号展示结果映射
-    const changeCode = {
-      'S$': /SGD/,
-      'TL': /TRY/,
-      'DH': /MAD/,
-      'CAD $': /CA\$/,
-      'kr': /kr\.|Nkr/
-    }
-    for (const key in changeCode) {
-      if (formatResult.search(changeCode[key]) >= 0) {
-        formatResult = formatResult.replace(changeCode[key], key)
-        break
-      }
-    }
+    // 输出
     return formatResult
-
   }
 
   _uts (usdAmount, computeType, usdToSelfExchangeRate) {
